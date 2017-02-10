@@ -1,0 +1,804 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">	
+<title>王二狗的节奏大师</title>
+<style>
+	html,body,ul,li,p,a,input,div{
+		font-family: "微软雅黑";
+		margin: 0;
+		padding: 0;
+	}
+	body{
+		background: rgb(39,40,34);
+	}
+	li {list-style:none;}
+	.container{
+		overflow: hidden;
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		width: 300px;
+		height: 532.5px;
+		background: #000;
+		background: url(http://www.8king.cn/myproject-multi/music/a01.jpg);
+		background-size: 100% 100%; 
+		border: 2px solid #fff;
+		z-index: -100;
+	}
+	#start{
+		width: 100%;
+		height: 100%;
+		line-height: 100px;
+		text-align: center;
+		cursor: pointer;
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		border: 0;
+		margin: auto;
+		color: #fff;
+		z-index: 1000;
+		text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de;
+		background: url(http://www.8king.cn/myproject-multi/music/acd.jpg);
+		background-size: 100% 100%;
+		z-index: 1000000000000;
+	}
+	.head_name{
+		font-size: 56px;
+		width: 100%;
+		height: 100px;
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 150px;
+		margin: auto;
+		z-index: 10000001;	
+		text-shadow: none;	
+		background: rgba(0,0,0,0.8);	
+	}
+	.start_inner{
+		font-size: 36px;
+		width: 100%;
+		height: 100px;
+		position: absolute;
+		left: 0;
+		top: 50px;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		z-index: 10000001;
+	}
+	.score{
+		font-size: 16px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		border: 0;
+		padding: 10px 15px;
+		color: #fff;
+		background: rgba(166,226,46,0.5);
+	}
+	.score:before{content:"得分:";}
+	.time{
+		font-size: 16px;
+		padding: 10px 15px;
+		left: 0;
+		top: 0;
+		border: 0;		
+		color: #fff;
+		background: rgba(249,38,76,0.5);	
+		position: absolute;
+	}
+	.time:before{content:"时间:";}
+	.status{
+		width: 100%;
+		text-align: center;
+		font-size: 16px;
+		position: absolute;
+		right: 0;
+		top: 150px;
+		border: 0;
+		color: #fff;
+		font-size: 40px;
+		text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de;
+		-webkit-animation: track 0.1s linear 1;
+		-webkit-transition: track 0.1s linear;
+	}
+	@-webkit-keyframes track {
+		0%{
+			transform: scale(1,1);
+		}
+		100%{
+			transform: scale(1.3,1.3);
+		}
+	}
+	.keyContainer{
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 62px;
+                z-index: 1000000000;
+	}
+	.keyContainer p{
+		margin: 5px;
+		margin-bottom: 2px;
+		width: 63px;
+		height: 50px;
+		font-size: 30px;
+		line-height: 50px;
+		text-align: center;
+		float: left;
+		color: #fff;
+		border: 1px solid #fff;
+		background: rgba(255,255,255,0.5);
+		cursor: pointer;
+                z-index: 1000000000;
+	}
+	.container ul{ 
+		width:75px; 
+		height:100%; 
+		float:left; 
+		position:relative; 
+		overflow:-hidden;}
+	.container ul li { 
+		position:absolute; 
+		margin:5px; 
+		width:65px; 
+		height:50px; 
+		background: -webkit-linear-gradient( top,#ccc,#000);
+		text-align:center; 
+		line-height:60px; 
+		color:#fff; 
+		border-radius:4px; 
+		z-index: -1;
+	}
+	.ruler01{
+		width: 100%;
+		height: 5px;
+		background:rgba(255,255,255,0.7);
+		position: absolute;
+		top: 460px;
+	}
+	.ruler02{
+		width: 100%;
+		height: 10px;
+		background:rgba(0,0,0,0.7);
+		position: absolute;
+		top: 465px;
+	}
+	.gamePause{
+		font-size: 16px;
+		position: absolute;
+		right: 0;
+		top: 100px;
+		border: 0;
+		padding: 10px 15px;
+		color: #fff;
+		z-index: 2000000;
+		
+	}
+	.gameRestart{
+		font-size: 16px;
+		position: absolute;
+		right: 0;
+		top: 50px;
+		border: 0;
+		padding: 10px 15px;
+		color: #fff;
+		z-index: 10000;	
+		cursor: pointer;
+	}
+	/*媒体查询*/
+	@media screen and (max-width:420px){
+		.container{
+			overflow: hidden;
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			width: 100%;
+			height: 100%;
+			background: #000;
+			background: url(http://www.8king.cn/myproject-multi/music/a01.jpg);
+			background-size: 100% 100%; 
+			z-index: -100;
+		}
+		#start{
+			cursor: pointer;
+			width: 100%;
+			height: 100%;
+			background: #000;
+			position: absolute;
+			left: 0;
+			top: 0;
+			border: 0;
+			color: #fff;
+			z-index: 10000000;
+			background: url(http://www.8king.cn/myproject-multi/music/acd.jpg);
+			background-size: 100% 100%;
+		}
+		.head_name{
+			font-size: 56px;
+			width: 100%;
+			height: 100px;
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 150px;
+			margin: auto;
+			z-index: 10000001;	
+			text-shadow: none;	
+			background: rgba(0,0,0,0.8);	
+		}
+		.start_inner{
+			font-size: 36px;
+			width: 340px;
+			height: 100px;
+			position: absolute;
+			left: 0;
+			top: 50px;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			z-index: 10000001;
+		}
+		.score{
+			font-size: 16px;
+			position: absolute;
+			right: 0;
+			top: 0;
+			border: 0;
+			padding: 10px 15px;
+			color: #fff;
+			background: rgba(166,226,46,0.5);
+		}
+		.score:before{content:"得分:";}
+		.status{
+			width: 100%;
+			text-align: center;
+			font-size: 16px;
+			position: absolute;
+			right: 0;
+			top: 150px;
+			border: 0;
+			color: #fff;
+			font-size: 40px;
+			text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de;
+			-webkit-animation: track 0.1s linear 1;
+			-webkit-transition: track 0.1s linear;
+		}
+		@-webkit-keyframes track {
+			0%{
+				transform: scale(1,1);
+			}
+			100%{
+				transform: scale(1.3,1.3);
+			}
+		}
+
+		.keyContainer{
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			height: 85px;
+			z-index: 1000;
+		}
+		.keyContainer p{
+			margin:0;
+			margin-right: 3px;
+			margin-bottom: 2px;
+			width: 23.5%;
+			height: 85px;
+			font-size: 30px;
+			line-height: 85px;
+			text-align: center;
+			float: left;
+			color: #fff;
+			border: 1px solid #fff;
+			background: rgba(255,255,255,0.5);
+			cursor: pointer;
+			z-index: 2000;
+		}
+		.keyContainer p:last-child{
+			margin-bottom: 0;
+		}
+		.container ul{ 
+			width:23.5%; 
+			margin-right: 5px;
+			height:100%; 
+			float:left; 
+			position:relative; 
+			overflow:-hidden;
+		}
+		.container ul:last-child{
+			margin-right: 0;
+		}		
+		.container ul li { 
+			position:absolute; 
+			margin:5px; 
+			width:100%; 
+			height:50px; 
+			background: -webkit-linear-gradient( top,#ccc,#000);
+			text-align:center; 
+			line-height:60px; 
+			color:#fff; 
+			border-radius:4px; 
+			z-index: -1;
+		}
+		.ruler01{
+			width: 100%;
+			height: 5px;
+			background:rgba(255,255,255,0.4);
+			position: absolute;
+			top: 460px;
+			z-index: -2;
+		}
+		.ruler02{
+			width: 100%;
+			height: 50px;
+			background:rgba(0,0,0,0.4);
+			position: absolute;
+			top: 465px;
+		}	
+	}
+</style>
+</head>
+
+<body>
+	<!-- 系统音效 -->
+	<audio id="music" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/bg.m4a" type="audio/ogg">
+	</audio>
+	<audio id="musicWelcome" preload="auto" autoplay="autoplay" loop="loop">
+	 	<source src="http://www.8king.cn/myproject-multi/music/welcome.mp3" type="audio/ogg">
+	</audio>
+	<audio id="musicWin" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/win.mp3" type="audio/ogg">
+	</audio>
+	<audio id="musicPause" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/pause.wav" type="audio/ogg">
+	</audio>	
+	<!-- 键盘音效 -->
+	<audio id="musicBtn01" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/1.wav" type="audio/ogg">
+	</audio>
+	<audio id="musicBtn02" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/2.wav" type="audio/ogg">
+	</audio>
+	<audio id="musicBtn03" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/3.wav" type="audio/ogg">
+	</audio>
+	<audio id="musicBtn04" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/4.wav" type="audio/ogg">
+	</audio>			
+	<!-- 特种音效 -->
+	<audio id="music4" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/4.mp3" type="audio/ogg">
+	</audio>
+	<audio id="musictime" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/time.mp3" type="audio/ogg">
+	</audio>
+	<audio id="unbelieve" preload="auto">
+	 	<source src="http://www.8king.cn/myproject-multi/music/unbelieve.mp3" type="audio/ogg">
+	</audio>
+
+	<div class="container" id="container">
+		<div id="start">
+			<div class="head_name">节奏大师</div>
+			<div class="start_inner">开始游戏</div>
+		</div>
+		<div class="status" id="status"></div>
+		<div class="score" id="score">0</div>
+		<div class="time" id="time">120</div>
+
+<!-- 		<div class="gamePause" id="gamePause">暂停</div> -->
+		<div class="gameRestart" id="gameRestart">重新开始</div>
+
+		<div class="ruler01"></div>
+		<div class="ruler02"></div>
+
+		<div class="keyContainer">
+			<p id="p01">Q</p>
+			<p id="p02">W</p>
+			<p id="p03">O</p>
+			<p id="p04">P</p>
+		</div>
+	</div>	
+</body>
+<script>
+window.onload=function ()
+{
+	var p01 = document.getElementById('p01');
+	var p02 = document.getElementById('p02');
+	var p03 = document.getElementById('p03');
+	var p04 = document.getElementById('p04');
+
+	var container = document.getElementById('container');
+	var start = document.getElementById('start');
+	// var gamePause = document.getElementById('gamePause');
+	var gameRestart = document.getElementById('gameRestart');
+
+	var ul = container.getElementsByTagName('ul');
+	var p = container.getElementsByTagName('p');
+	var li = container.getElementsByTagName('li');
+	var score = document.getElementById('score');
+	var status = document.getElementById('status');
+	var timeSet = document.getElementById('time');
+
+	var music = document.getElementById('music');
+	var musicWelcome = document.getElementById('musicWelcome');
+	var musicWin = document.getElementById('musicWin');
+	var musicPause = document.getElementById('musicPause');
+	var musicBtn01 = document.getElementById('musicBtn01');
+	var musicBtn02 = document.getElementById('musicBtn02');
+	var musicBtn03 = document.getElementById('musicBtn03');
+	var musicBtn04 = document.getElementById('musicBtn04');		
+
+	musicBtn01.volume = 0.1;
+	musicBtn02.volume = 0.1;
+	musicBtn03.volume = 0.1;
+	musicBtn04.volume = 0.1;
+
+
+	var music4 =  document.getElementById('music4');
+	var musictime = document.getElementById('musictime');
+	var unbelieve = document.getElementById('unbelieve');
+
+	var scoreChange = 0;
+	var speed = 7;
+	var timer = null;
+	var timer02 = null;
+	var flag = 0;
+
+
+	// 生成4个UL
+	for (var i=0; i<4; i++){
+		var ulChange=document.createElement('ul');
+		
+		container.appendChild(ulChange);
+	}
+	start.onclick=play;
+
+
+
+	// 开始游戏
+	function play(){	
+		music.play();
+		musicWelcome.pause();
+		window.setInterval(timeCheck, 1000);
+		start.style.display="none";
+		status.innerHTML="";
+
+		function generate()
+		{
+			var num=numRandom(0, 4);
+			
+			var liChange=document.createElement('li');
+			
+			liChange.style.background="-webkit-linear-gradient( top,transparent," + colorRandom() + ")";
+			
+			ul[num].appendChild(liChange);
+			
+			move(liChange, function ()
+			{
+				if (li.length>=20)
+				{
+					gotoEnd();
+					
+					alert('德玛西亚！， 得分'+scoreChange);
+				}
+				
+			});
+			// timer02=setInterval(cut, 3000);
+		}
+		
+		generate();
+		
+		timer=setInterval(generate, 500);
+	}
+	
+	// 暂停游戏
+	function pasue (){
+		music.pause();
+		musicPause.play();
+		clearInterval(timer);
+		
+		for (var i=0; i<li.length; i++)
+		{
+			clearTimeout(li[i].timeout);
+		}
+		status.innerHTML="暂停" + '<br />' + "得分：" + scoreChange;
+		for (i=0; i<ul.length; i++)
+		{
+			ul[i].innerHTML='';
+		}
+	}
+	
+	// 结束游戏
+	function gotoEnd (){
+		music.pause();
+		musicWin.play();
+		clearInterval(timer);
+		
+		for (var i=0; i<li.length; i++)
+		{
+			clearTimeout(li[i].timeout);
+		}
+		
+		for (i=0; i<ul.length; i++)
+		{
+			ul[i].innerHTML='';
+		}
+		
+		scoreChange=0;
+		speed=7;
+	}
+
+	// 生成随机颜色
+	function colorRandom(){
+	
+		return "#"+("00000"+((Math.random()*16777215+0.5)>>0).toString(16)).slice(-6); 
+	}
+
+	// 生成随机数字
+	function numRandom(m, n){
+	
+		return parseInt(Math.random()*(n-m)+m);
+	}
+
+	// 倒数计时
+	function timeCheck(){
+	    if(timeSet.innerHTML == 0){
+			timeSet.innerHTML="时间到了";
+    		if(scoreChange<100){
+    			musictime.play();
+				status.innerHTML="青铜小学生!" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}
+			if(scoreChange>100){
+				musictime.play();
+				status.innerHTML="你是猪吗?" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}
+			if(scoreChange>200){
+				musictime.play();
+				status.innerHTML="666!" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}				
+			if(scoreChange>500){
+				music4.play();
+				status.innerHTML="超凡大师!" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}	
+			if(scoreChange>1000){
+				music4.play();
+				status.innerHTML="最强王者!" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}	
+	        gotoEnd ();
+	        return false;
+	    }
+	    timeSet.innerHTML = timeSet.innerHTML * 1 - 1;
+	}
+
+	// 游戏速度加快/提示音
+	function testScoreChange(){
+		switch(scoreChange) {
+			case 100:
+				unbelieve.play();
+				speed = 8;
+				break;
+			case 150:
+				unbelieve.play();
+				break;
+			case 200:
+				unbelieve.play();
+				speed = 10;
+				break;
+			case 250:
+				unbelieve.play();
+				break;
+			case 300:
+				unbelieve.play();
+				break;
+			case 350:
+				unbelieve.play();
+				break;
+			case 400:
+				unbelieve.play();
+				break;												
+			case 500:
+				unbelieve.play();
+				speed = 12;
+				break;
+			case 1000:
+				unbelieve.play();
+				speed = 16;
+				break;
+		}		
+	}
+
+	// 核心判断函数
+	function lazy(n){
+		if (!ul[n].children.length)
+		{
+			if(scoreChange<100){
+				status.innerHTML="青铜小学生!" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}
+			if(scoreChange>100){
+				status.innerHTML="你是猪吗?" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}
+			if(scoreChange>200){
+				status.innerHTML="666!" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}				
+			if(scoreChange>500){
+				music4.play();
+				status.innerHTML="超凡大师!" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}	
+			if(scoreChange>1000){
+				music4.play();
+				status.innerHTML="最强王者!" + '<br />' + " 得分: " + scoreChange + '<br />' + "按F重新开始";
+			}	
+			
+			gotoEnd();
+			
+			return;
+		}
+		var height = coll(ul[n].children[0], p[n]);
+
+		console.log(typeof(height));
+		console.log(height);
+
+		if (height){
+			// ul[n].children[0].style.background="#000";
+			ul[n].removeChild(ul[n].children[0]);
+			// p[n].style.background="rgba(255,255,255,1.0)";
+
+			score.innerHTML=scoreChange;
+			return;
+		}else{
+			status.innerHTML="MISS";
+			ul[n].removeChild(ul[n].children[0]);
+			return;
+		}
+	}
+
+	function reload(){
+		document.location.reload();
+	}
+	// 点击事件
+	// gamePause.onclick=pasue;
+	
+	gameRestart.onclick=reload;
+
+	 p01.onclick = function(){
+	 	testScoreChange()
+		lazy(0);
+	 }
+	 p02.onclick = function(){
+	 	testScoreChange()
+		lazy(1);
+	 }
+	 p03.onclick = function(){
+	 	testScoreChange()
+		lazy(2);
+	 }
+	 p04.onclick = function(){
+	 	testScoreChange()
+		lazy(3);
+	 } 	 
+
+
+	// 键盘事件
+	document.onkeydown=function (ev){
+		var ev=ev||event;
+		
+		// 当分数超过一定数目加速
+		testScoreChange();
+
+		// 判断键盘位置
+		switch(ev.keyCode)
+		{
+			case 81:
+				musicBtn01.play();
+				lazy(0);
+				break;
+			case 87:
+				musicBtn02.play();
+				lazy(1);
+				break;
+			case 79:
+				musicBtn03.play();
+				lazy(2);
+				break;
+			case 80:
+				musicBtn04.play();
+				lazy(3);
+				break;
+			case 13:
+				if(flag == 0){
+					play();
+					//设置为1的状态，停止改变
+					flag =1;
+				}else{
+					pasue();
+					flag=0;
+				}
+				break;
+			case 70:
+				reload();
+				break;
+		}
+	};
+	
+
+	// 方块向下移动
+	function move (obj){
+	
+		clearInterval(obj.timer);
+		obj.timer=setInterval(function ()
+		{
+			obj.style.top=obj.offsetTop+speed+'px';
+				
+			// fnDuring && fnDuring.call(obj);
+		}, 30);	
+	}
+	
+	// 获得位置
+	function getPos (obj){
+	
+		var left=0;
+		var top=0;
+		
+		while(obj)
+		{
+			left+=obj.offsetLeft;
+			top+=obj.offsetTop;
+			
+			obj=obj.offsetParent
+		}
+		
+		return {'left': left, 'top': top};
+	}	
+
+	// 判断是否得分
+	function coll (obj1, obj2){
+		var l1=getPos(obj1).left;
+		var r1=getPos(obj1).left+obj1.offsetWidth;
+		var t1=getPos(obj1).top;
+		var b1=getPos(obj1).top+obj1.offsetHeight;
+		// console.log("方块距离上部的高度:" + t1);
+		var l2=getPos(obj2).left;
+		var r2=getPos(obj2).left+obj2.offsetWidth;
+		var t2=getPos(obj2).top;
+		var b2=getPos(obj2).top+obj2.offsetHeight;
+
+		if (l1>r2 || r1<l2){
+			// status.innerHTML="WRONG!";
+			return false;
+		}
+		console.log("距离左侧距离:" + l1);
+		console.log("离上部的高度:" + b1);
+
+		if(b1>460 && b1<560){
+			status.innerHTML="Good!";
+			if(b1>=485 && b1<=528){
+				status.innerHTML="Perfect!";
+				// unbelieve.play();
+				scoreChange+=10;
+				return true;	
+			}
+			scoreChange+=5;
+			return true;	
+		}
+
+	}
+};
+</script>
+</html>
