@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>鼠标经过修改图片路径</title>
+		<style type="text/css">
+			html,
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			
+			body {
+				background-color: black;
+			}
+			
+			#container {
+				width: 226px;
+				background-color: gold;
+				margin: 10px auto;
+				padding: 5px;
+				box-sizing: border-box;
+				overflow: hidden;
+			}
+			
+			#container li {
+				width: 50px;
+				height: 50px;
+				float: left;
+				margin: 2px;
+			}
+			
+			#container li.first {
+				width: 158px;
+				height: 154px;
+			}
+			
+			#container img {
+				width: 100%;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--div#container>ul>(li>a[href="javascript:;"]>img[src='img/small/$.jpg'])*11-->
+		<div id="container">
+			<ul>
+				<li class="first">
+					<a href="javascript:;"><img src="img/big_2.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_1.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_2.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_3.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_4.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_5.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_6.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_7.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_8.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_9.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_10.jpg" alt="" /></a>
+				</li>
+				<li>
+					<a href="javascript:;"><img src="img/small_11.jpg" alt="" /></a>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+
+</html>
+<script type="text/javascript">
+	var oimg = document.querySelectorAll('#container img');
+	//	for (var i = 1; i < oimg.length; i++) {
+	//		oimg[i].index =i;
+	//		oimg[i].onmouseover = function(){
+	//			oimg[0].src = "img/big_"+ this.index +".jpg"
+	//			console.log(this.index)
+	//			
+	//		}
+	//	}
+//	for (var i = 1; i < oimg.length; i++) {
+//			oimg[i].onmouseover = function(){
+//				oimg[0].src = this.src.replace(/small/,'big')
+//				console.log(this.index)
+//			}
+//		}
+	for (var i = 1; i < oimg.length; i++) { 
+			
+			oimg[i].onmouseover = function(){
+				oimg[0].src = "img/big"+this.src.slice(this.src.indexOf('_'));
+				
+			}
+		}
+</script>
